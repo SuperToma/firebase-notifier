@@ -63,6 +63,9 @@ final class FirebaseTransport extends AbstractTransport
         $options['notification']['body'] = $message->getSubject();
         $options['data'] ??= [];
 
+        $options['data'] += $options['notification'];
+        unset($options['notification']);
+        
         $response = $this->client->request('POST', $endpoint, [
             'headers' => [
                 'Authorization' => sprintf('key=%s', $this->token),
